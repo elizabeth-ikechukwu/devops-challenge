@@ -21,3 +21,16 @@ variable "public_subnet_cidr" {
   type        = string
   default     = "10.0.1.0/24"
 }
+variable "ssh_cidr" {
+  description = "The single IPv4 CIDR allowed to reach SSH, for example your own IP as x.x.x.x/32. No default on purpose."
+  type        = string
+
+  validation {
+    condition = (
+      can(cidrhost(var.ssh_cidr, 0)) &&
+      can(regex("^[0-9.]+/[0-9]{1,2}$", var.ssh_cidr)) &&
+      var.ssh_cidr != "0.0.0.0/0"
+    )
+    error_message = "ssh_cidr must be a valid IPv4 CIDR such as 203.0.113.10/32, and must not be 0.0.0.0/0."
+  }
+}
