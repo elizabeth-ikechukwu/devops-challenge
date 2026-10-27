@@ -34,3 +34,14 @@ variable "ssh_cidr" {
     error_message = "ssh_cidr must be a valid IPv4 CIDR such as 203.0.113.10/32, and must not be 0.0.0.0/0."
   }
 }
+variable "ami_id" {
+  description = "Ubuntu 24.04 LTS (amd64) AMI for the region; the bootstrap script needs apt, systemd and ufw. The default is a placeholder: the current ID is published in SSM at /aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id."
+  type        = string
+  default     = "ami-0a1b2c3d4e5f67890"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type."
+  type        = string
+  default     = "t3.micro"
+}
