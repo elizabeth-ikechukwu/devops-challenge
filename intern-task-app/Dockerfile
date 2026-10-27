@@ -5,7 +5,7 @@ RUN useradd --system --uid 10001 --no-create-home --shell /usr/sbin/nologin app
 WORKDIR /app
 COPY app/app.py .
 
-ENV PORT=8080
+ENV PORT=9090
 EXPOSE 8080
 
 USER 10001
