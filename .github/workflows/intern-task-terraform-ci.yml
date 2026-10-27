@@ -13,6 +13,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: intern-task-terraform/terraform
@@ -23,6 +24,8 @@ jobs:
       AWS_ACCESS_KEY_ID: fake
       AWS_SECRET_ACCESS_KEY: fake
       AWS_DEFAULT_REGION: us-east-1
+      # Placeholder from the documentation range (203.0.113.0/24), never a real host.
+      TF_VAR_ssh_cidr: "203.0.113.10/32"
     steps:
       - uses: actions/checkout@v4
 
@@ -40,4 +43,4 @@ jobs:
         run: terraform validate
 
       - name: Plan
-        run: terraform plan
+        run: terraform plan -input=false
